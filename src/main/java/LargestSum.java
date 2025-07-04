@@ -1,34 +1,25 @@
 import java.util.List;
+import java.util.Collections;
+import java.util.ArrayList;
 
 public class LargestSum {
     /**
-     * Get the largest possible sum that can be obtained from a pair of values in the list.
-     * A number can't be added to itself, unless there are duplicates.
+     * Get the largest possible sum that can be obtained from a pair of values in the list. A number can't be added
+     * to itself, unless there are duplicates.
+     *
      * @param nums a list of ints.
      * @return the largest possible sum of separate numbers from nums.
      */
     public int bigSum(List<Integer> nums) {
-        if (nums == null || nums.isEmpty()) {
+        if (nums == null || nums.size() < 2) {
             return 0;
         }
         
-        if (nums.size() == 1) {
-            return nums.get(0);
-        }
+        // Create a copy and sort in descending order
+        List<Integer> sortedNums = new ArrayList<>(nums);
+        Collections.sort(sortedNums, Collections.reverseOrder());
         
-        // Find the two largest numbers in the list
-        int largest = Integer.MIN_VALUE;
-        int secondLargest = Integer.MIN_VALUE;
-        
-        for (int num : nums) {
-            if (num > largest) {
-                secondLargest = largest;
-                largest = num;
-            } else if (num > secondLargest) {
-                secondLargest = num;
-            }
-        }
-        
-        return largest + secondLargest;
+        // The largest sum will be the sum of the two largest numbers
+        return sortedNums.get(0) + sortedNums.get(1);
     }
 }
